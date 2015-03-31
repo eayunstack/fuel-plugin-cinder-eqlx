@@ -1,2 +1,3 @@
-# fuel-plugin-cinder-eqlx
-fuel plugin to support eqlx volume backend.
+cinder-eqlx
+=================
+A fuel plugin to enable eqlx backend for cinder.
