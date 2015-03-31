@@ -1,0 +1,7 @@
+- role: ['controller']
+  stage: post_deployment
+  type: puppet
+  parameters:
+    puppet_manifest: site.pp
+    puppet_modules: "puppet/:/etc/puppet/modules/"
+    timeout: 360
