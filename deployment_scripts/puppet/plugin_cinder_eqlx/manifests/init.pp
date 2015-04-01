@@ -4,12 +4,12 @@ class plugin_cinder_eqlx
 
     $primary_controller = $::fuel_settings['role'] ? { 'primary-controller'=>true, default=>false }
 
-    #if $::fuel_settings['storage']['volumes_ceph'] {
-    #  $enabled_backends = ['cinder_ceph','cinder_eqlx']
-    #}
-    #else {
-    #  $enabled_backends = ['cinder_eqlx']
-    #}
+    if $::fuel_settings['storage']['volumes_ceph'] {
+      $enabled_backends = ['cinder_ceph','cinder_eqlx']
+    }
+    else {
+      $enabled_backends = ['cinder_eqlx']
+    }
 
     cinder::backend::eqlx { 'cinder_eqlx':
       san_ip                    => $::fuel_settings['cinder_eqlx']['san_ip'],
