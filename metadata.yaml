@@ -7,12 +7,12 @@ version: 1.0.0
 # Description
 description: Enable to use Eqlx driver as a Cinder backend
 # Required fuel version
-fuel_version: ['6.0']
+fuel_version: ['6.0.1']
 
 # The plugin is compatible with releases in the list
 releases:
   - os: centos
-    version: 2014.2-6.0
+    version: 2014.2.2-6.0.1
     mode: ['ha', 'multinode']
     deployment_scripts_path: deployment_scripts/
     repository_path: repositories/centos
