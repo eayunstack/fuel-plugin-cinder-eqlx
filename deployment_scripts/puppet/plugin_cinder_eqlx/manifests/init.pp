@@ -17,7 +17,7 @@ class plugin_cinder_eqlx
       san_password              => $::fuel_settings['cinder_eqlx']['san_password'],
       eqlx_group_name           => $::fuel_settings['cinder_eqlx']['eqlx_group_name'],
       eqlx_pool                 => $::fuel_settings['cinder_eqlx']['eqlx_pool'],
-      san_thin_provision        => false,
+      san_thin_provision        => true,
       volume_backend_name       => 'cinder_eqlx',
       eqlx_use_chap             => false,
       eqlx_cli_timeout          => 30,
