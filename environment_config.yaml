@@ -17,12 +17,6 @@ attributes:
     description: 'The password for the specified SSH account.'
     weight: 45
     type: "password"
-  volume_backend_name:
-    value: ''
-    label: 'Backend Name'
-    description: 'Volume Backend Name'
-    weight: 45
-    type: "text"
   eqlx_group_name:
     value: ''
     label: 'Volume Group Name'
