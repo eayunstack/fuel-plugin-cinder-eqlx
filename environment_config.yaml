@@ -29,3 +29,17 @@ attributes:
     description: 'The pool in which volumes will be created.'
     weight: 50
     type: "text"
+  default_volume_type:
+    type: "radio"
+    weight: 60
+    value: false
+    label: "Default volume type to use for cinder."
+    values:
+      - data: "rbd"
+        label: "Ceph"
+        description: "Use Ceph as default volume type."
+        restrictions:
+            - "settings:storage.volumes_ceph.value != true"
+      - data: "eqlx"
+        label: "EqualLogic"
+        description: "Use EqualLogic as default volume type."
