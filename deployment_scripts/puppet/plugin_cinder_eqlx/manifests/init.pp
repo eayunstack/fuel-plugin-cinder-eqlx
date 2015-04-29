@@ -3,6 +3,7 @@ class plugin_cinder_eqlx
     include cinder::params
 
     $primary_controller = $::fuel_settings['role'] ? { 'primary-controller'=>true, default=>false }
+    $default_volume_type = $::fuel_settings['cinder_eqlx']['default_volume_type']
 
     if $::fuel_settings['storage']['volumes_ceph'] {
       $enabled_backends = ['cinder_ceph','cinder_eqlx']
@@ -27,8 +28,9 @@ class plugin_cinder_eqlx
     }
 
     class { 'cinder::backends':
-      enabled_backends  => $enabled_backends,
-      notify            => Service[$::cinder::params::volume_service],
+      enabled_backends    => $enabled_backends,
+      default_volume_type => $default_volume_type,
+      notify              => Service[$::cinder::params::volume_service],
     }
 
     if $primary_controller {
@@ -47,5 +49,3 @@ class plugin_cinder_eqlx
     }
 
 }
-
-
