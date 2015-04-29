@@ -1,7 +1,7 @@
 # Plugin name
 name: cinder_eqlx
 # Human-readable name for your plugin
-title: Cinder and Eqlx integration
+title: Cinder and EqualLogic integration
 # Plugin version
 version: 1.0.0
 # Description
