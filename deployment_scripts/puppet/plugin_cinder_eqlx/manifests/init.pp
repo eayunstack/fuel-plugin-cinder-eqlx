@@ -23,15 +23,29 @@ class plugin_cinder_eqlx
       eqlx_use_chap             => false,
       eqlx_cli_timeout          => 30,
       eqlx_cli_max_retries      => 5,
-    } ~>
-    service { $::cinder::params::volume_service:
     }
+
+    cinder_config {
+      'DEFAULT/ssh_min_pool_conn': value => 1;
+      'DEFAULT/ssh_max_pool_conn': value => 1;
+    }
+
 
     class { 'cinder::backends':
       enabled_backends    => $enabled_backends,
       default_volume_type => $default_volume_type,
-      notify              => Service[$::cinder::params::volume_service],
     }
+
+    service { $::cinder::params::volume_service:
+      ensure => running,
+      enable => true,
+    }
+
+    Cinder::Backend::Eqlx['cinder_eqlx'] ->
+      Cinder_config['DEFAULT/ssh_min_pool_conn'] ->
+        Cinder_config['DEFAULT/ssh_max_pool_conn'] ->
+          Class['cinder::backends'] ~>
+            Service[$::cinder::params::volume_service]
 
     if $primary_controller {
 
