@@ -50,7 +50,9 @@ class plugin_cinder_eqlx
     if $primary_controller {
 
       package {'python-cinderclient':
-      } ->
+        ensure => present,
+      }
+
       cinder::type { 'eqlx':
         os_username     => $::fuel_settings['access']['user'],
         os_password     => $::fuel_settings['access']['password'],
@@ -58,8 +60,11 @@ class plugin_cinder_eqlx
         os_auth_url     => "http://${::fuel_settings['management_vip']}:5000/v2.0/",
         set_key         => 'volume_backend_name',
         set_value       => 'cinder_eqlx',
-        require         => Cinder::Backend::Eqlx['cinder_eqlx'],
       }
+
+      Package['python-cinderclient'] ->
+        Class['cinder::backends'] ->
+          Cinder::Type['eqlx']
     }
 
 }
