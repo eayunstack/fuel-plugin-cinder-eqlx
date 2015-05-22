@@ -55,7 +55,17 @@ class plugin_cinder_eqlx
       default_volume_type => $default_volume_type,
     }
 
+    service { $::cinder::params::api_service:
+      ensure => running,
+      enable => true,
+    }
+
     service { $::cinder::params::volume_service:
+      ensure => running,
+      enable => true,
+    }
+
+    service { $::cinder::params::scheduler_service:
       ensure => running,
       enable => true,
     }
@@ -65,7 +75,9 @@ class plugin_cinder_eqlx
         Cinder_config['DEFAULT/ssh_min_pool_conn'] ->
           Cinder_config['DEFAULT/ssh_max_pool_conn'] ->
             Class['cinder::backends'] ~>
-              Service[$::cinder::params::volume_service]
+              Service[$::cinder::params::api_service] ~>
+                Service[$::cinder::params::scheduler_service] ~>
+                  Service[$::cinder::params::volume_service]
 
     if $primary_controller {
 
