@@ -46,8 +46,8 @@ class plugin_cinder_eqlx
     }
 
     cinder_config {
-      'DEFAULT/ssh_min_pool_conn': value => 1;
-      'DEFAULT/ssh_max_pool_conn': value => 1;
+      'cinder_eqlx/ssh_min_pool_conn': value => 1;
+      'cinder_eqlx/ssh_max_pool_conn': value => 1;
     }
 
     class { 'cinder::backends':
@@ -72,8 +72,8 @@ class plugin_cinder_eqlx
 
     Package[$::cinder::params::package_name] ->
       Cinder::Backend::Eqlx['cinder_eqlx'] ->
-        Cinder_config['DEFAULT/ssh_min_pool_conn'] ->
-          Cinder_config['DEFAULT/ssh_max_pool_conn'] ->
+        Cinder_config['cinder_eqlx/ssh_min_pool_conn'] ->
+          Cinder_config['cinder_eqlx/ssh_max_pool_conn'] ->
             Class['cinder::backends'] ~>
               Service[$::cinder::params::api_service] ~>
                 Service[$::cinder::params::scheduler_service] ~>
